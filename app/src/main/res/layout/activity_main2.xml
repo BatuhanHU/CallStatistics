@@ -23,11 +23,5 @@
             app:headerLayout="@layout/nav_header_main2"
             app:menu="@menu/activity_main2_drawer"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/my_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-    />
 
 </androidx.drawerlayout.widget.DrawerLayout>

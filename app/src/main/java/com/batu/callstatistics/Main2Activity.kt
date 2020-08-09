@@ -1,5 +1,6 @@
 package com.batu.callstatistics
 
+import android.os.AsyncTask
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -11,8 +12,18 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.batu.callstatistics.database.Call
+import com.batu.callstatistics.utility.AsyncUtil
+import com.batu.callstatistics.utility.CallStatisticsUtil
 
 class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +36,9 @@ class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+            AsyncUtil{
+                CallStatisticsUtil.longestTalked(this)
+            }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -35,6 +49,24 @@ class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
+
+        val myDataset = arrayListOf<Call>()
+
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = RecyclerViewAdapter(myDataset, this)
+
+        recyclerView = findViewById<RecyclerView>(R.id.my_recycler_view).apply {
+            // use this setting to improve performance if you know that changes
+            // in content do not change the layout size of the RecyclerView
+            setHasFixedSize(true)
+
+            // use a linear layout manager
+            layoutManager = viewManager
+
+            // specify an viewAdapter (see also next example)
+            adapter = viewAdapter
+
+        }
     }
 
     override fun onBackPressed() {

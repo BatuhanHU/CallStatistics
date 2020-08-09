@@ -91,6 +91,31 @@ class CdrUtil {
             }
             return nameMap
         }
+        fun getCallsByDuration(context: Context):HashMap<String, Int>{
+            Log.i(TAG, "Getting people by total duration")
+            @SuppressLint("MissingPermission") val managedCursor = context
+                .getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, "DATE DESC")
+
+            val number = managedCursor!!.getColumnIndex(CallLog.Calls.NUMBER)
+            val duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION)
+            val nameMap:HashMap<String, Int> = hashMapOf()
+
+            while (managedCursor.moveToNext()) {
+                var dirNum = managedCursor.getString(number)
+                var dirDuration = managedCursor.getInt(duration)
+                if (dirNum == "-2") {
+                    continue
+                }
+                if (dirNum.length > 3) {
+                    if (dirNum.substring(0, 3) == "+90") {
+                        dirNum = dirNum.substring(2)
+                    }
+                }
+                val current = nameMap.getOrPut(dirNum){0}
+                nameMap[dirNum] = current + dirDuration
+            }
+            return nameMap
+        }
 
     }
 }
