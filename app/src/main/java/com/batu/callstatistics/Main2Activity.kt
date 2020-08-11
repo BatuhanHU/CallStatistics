@@ -15,6 +15,8 @@ import android.view.Menu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batu.callstatistics.database.Call
+import com.batu.callstatistics.database.item.CardObject
+import com.batu.callstatistics.database.item.DataType
 import com.batu.callstatistics.utility.AsyncUtil
 import com.batu.callstatistics.utility.CallStatisticsUtil
 
@@ -50,7 +52,13 @@ class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         navView.setNavigationItemSelectedListener(this)
 
-        val myDataset = arrayListOf<Call>()
+        val myDataset = arrayListOf<CardObject>()
+
+        val cardObject = CardObject("Test Name", DataType.DURATION)
+        cardObject.totalDuration = 2313
+        cardObject.callCount = 54
+
+        myDataset.add(cardObject)
 
         viewManager = LinearLayoutManager(this)
         viewAdapter = RecyclerViewAdapter(myDataset, this)

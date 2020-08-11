@@ -7,9 +7,9 @@ import com.batu.callstatistics.database.Call
 class CallStatisticsUtil {
     companion object{
 
-        val TAG = javaClass.toString()
+        val TAG = ::CallStatisticsUtil.toString()
 
-        lateinit var byDuration:List<Pair<String,Int>>
+        private lateinit var byDuration:List<Pair<String,Int>>
 
         fun longestTalked(context: Context):List<Pair<String, Int>>{
             if (this::byDuration.isInitialized) return byDuration

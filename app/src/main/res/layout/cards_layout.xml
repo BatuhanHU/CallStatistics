@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:card_view="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
+              xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:tag="cards main container">
@@ -16,54 +16,89 @@
             card_view:cardElevation="5dp"
             card_view:cardUseCompatPadding="true">
 
-        <LinearLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-        >
+                android:layout_height="wrap_content">
 
-            <ImageView
-                    android:id="@+id/imageView"
-                    android:tag="image_tag"
-                    android:layout_width="0dp"
+            <TextView
+                    android:id="@+id/textViewTitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_foreground"/>
-
-            <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent" android:textColor="@color/colorAccent"/>
+            <TextView
+                    android:id="@+id/textViewName"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_weight="2"
-                    android:orientation="vertical"
-            >
+                    android:layout_gravity="center_horizontal"
 
-                <TextView
-                        android:id="@+id/textViewName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
-                        android:text="Android Name"
-                        android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-                <TextView
-                        android:id="@+id/textViewVersion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
-
-                        android:text="Android Version"
-                        android:textAppearance="?android:attr/textAppearanceMedium"/>
-                <ImageButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" app:srcCompat="@android:drawable/arrow_down_float"
-                        android:id="@+id/imageButton"/>
-
-            </LinearLayout>
-        </LinearLayout>
+                    android:text="Name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/textViewTitle"/>
+            <View
+                    android:id="@+id/divider2"
+                    android:layout_width="379dp"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewCallCount"
+                    app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp"/>
+            <Button
+                    android:text="Expand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button_expand" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/divider2"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored" android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
+            <TextView
+                    android:text="Information"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewInformation"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/textViewName"/>
+            <TextView
+                    android:text="Total Duration : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewDuration"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" android:layout_marginTop="24dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewInformation" android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"/>
+            <TextView
+                    android:text="Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewDurationValue"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewDuration"
+                    app:layout_constraintTop_toTopOf="@+id/textViewDuration" android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toEndOf="@+id/textViewDuration"/>
+            <TextView
+                    android:text="Call Count : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewCallCount" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewDuration"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"/>
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewCallCountValue"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewCallCount"
+                    app:layout_constraintTop_toTopOf="@+id/textViewCallCount"
+                    app:layout_constraintStart_toStartOf="@+id/textViewDurationValue"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
