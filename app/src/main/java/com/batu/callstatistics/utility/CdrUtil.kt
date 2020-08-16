@@ -6,6 +6,7 @@ import android.provider.CallLog
 import android.util.Log
 import com.batu.callstatistics.database.Call
 import com.batu.callstatistics.database.GetDatabase
+import com.batu.callstatistics.database.item.CardObject
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -13,6 +14,8 @@ import kotlin.collections.HashMap
 class CdrUtil {
     companion object{
         val TAG = "CDRUTIL"
+
+        lateinit var names:HashMap<String, String>
 
         /**
          * Returns the arrayList of Cdr data for last given minutes.
@@ -68,6 +71,7 @@ class CdrUtil {
         }
 
         fun getNameMap(context: Context):HashMap<String, String>{
+            if(this::names.isInitialized) return names
             Log.i(TAG, "Filling the name hashmap")
             @SuppressLint("MissingPermission") val managedCursor = context
                 .getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, "DATE DESC")
@@ -79,7 +83,7 @@ class CdrUtil {
             while (managedCursor.moveToNext()) {
                 val dirName = managedCursor.getString(name)
                 var dirNum = managedCursor.getString(number)
-                if (dirNum == "-2") {
+                if (dirNum == "-2" || dirName.isNullOrBlank()) {
                     continue
                 }
                 if (dirNum.length > 3) {
@@ -89,16 +93,17 @@ class CdrUtil {
                 }
                 nameMap[dirNum] = dirName
             }
-            return nameMap
+            names = nameMap
+            return names
         }
-        fun getCallsByDuration(context: Context):HashMap<String, Int>{
+        fun getCallsByDuration(context: Context):HashMap<String, CardObject>{
             Log.i(TAG, "Getting people by total duration")
             @SuppressLint("MissingPermission") val managedCursor = context
                 .getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, "DATE DESC")
 
             val number = managedCursor!!.getColumnIndex(CallLog.Calls.NUMBER)
             val duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION)
-            val nameMap:HashMap<String, Int> = hashMapOf()
+            val nameMap:HashMap<String, CardObject> = hashMapOf()
 
             while (managedCursor.moveToNext()) {
                 var dirNum = managedCursor.getString(number)
@@ -111,8 +116,10 @@ class CdrUtil {
                         dirNum = dirNum.substring(2)
                     }
                 }
-                val current = nameMap.getOrPut(dirNum){0}
-                nameMap[dirNum] = current + dirDuration
+                val current = nameMap.getOrPut(dirNum){CardObject(dirNum)}
+                nameMap[dirNum]!!.totalDuration = current.totalDuration + dirDuration
+                nameMap[dirNum]!!.callCount++
+
             }
             return nameMap
         }

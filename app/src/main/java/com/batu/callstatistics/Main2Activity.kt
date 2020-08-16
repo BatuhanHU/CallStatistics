@@ -38,9 +38,6 @@ class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-            AsyncUtil{
-                CallStatisticsUtil.longestTalked(this)
-            }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -52,29 +49,31 @@ class Main2Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         navView.setNavigationItemSelectedListener(this)
 
-        val myDataset = arrayListOf<CardObject>()
+        AsyncUtil{
+            val sortedByDurationList = CallStatisticsUtil.longestTalked(this)
+            val myDataset = arrayListOf<CardObject>()
+            for(pair in sortedByDurationList){
+                myDataset.add(pair.second)
+            }
+            runOnUiThread {
+                viewManager = LinearLayoutManager(this)
+                viewAdapter = RecyclerViewAdapter(myDataset, this)
 
-        val cardObject = CardObject("Test Name", DataType.DURATION)
-        cardObject.totalDuration = 2313
-        cardObject.callCount = 54
+                recyclerView = findViewById<RecyclerView>(R.id.my_recycler_view).apply {
+                    // use this setting to improve performance if you know that changes
+                    // in content do not change the layout size of the RecyclerView
+                    setHasFixedSize(true)
 
-        myDataset.add(cardObject)
+                    // use a linear layout manager
+                    layoutManager = viewManager
 
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = RecyclerViewAdapter(myDataset, this)
+                    // specify an viewAdapter (see also next example)
+                    adapter = viewAdapter
 
-        recyclerView = findViewById<RecyclerView>(R.id.my_recycler_view).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
+                }
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
 
-            // use a linear layout manager
-            layoutManager = viewManager
-
-            // specify an viewAdapter (see also next example)
-            adapter = viewAdapter
-
-        }
     }
 
     override fun onBackPressed() {
