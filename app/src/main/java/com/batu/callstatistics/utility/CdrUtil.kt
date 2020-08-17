@@ -7,9 +7,10 @@ import android.util.Log
 import com.batu.callstatistics.database.Call
 import com.batu.callstatistics.database.GetDatabase
 import com.batu.callstatistics.database.item.CardObject
+import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
+
 
 class CdrUtil {
     companion object{
@@ -103,11 +104,16 @@ class CdrUtil {
 
             val number = managedCursor!!.getColumnIndex(CallLog.Calls.NUMBER)
             val duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION)
+            val date = managedCursor.getColumnIndex(CallLog.Calls.DATE)
+
             val nameMap:HashMap<String, CardObject> = hashMapOf()
+            val lastWeek = lastWeek().time
+            val lastMonth = lastMonth().time
 
             while (managedCursor.moveToNext()) {
                 var dirNum = managedCursor.getString(number)
                 var dirDuration = managedCursor.getInt(duration)
+                val callDate = java.lang.Long.valueOf(managedCursor.getString(date))
                 if (dirNum == "-2") {
                     continue
                 }
@@ -120,8 +126,29 @@ class CdrUtil {
                 nameMap[dirNum]!!.totalDuration = current.totalDuration + dirDuration
                 nameMap[dirNum]!!.callCount++
 
+                if(callDate >= lastWeek){
+                    nameMap[dirNum]!!.weekDuration = current.weekDuration + dirDuration
+                    nameMap[dirNum]!!.weekCallCount++
+                }
+                if(callDate  >= lastMonth) {
+                    nameMap[dirNum]!!.monthDuration = current.monthDuration + dirDuration
+                    nameMap[dirNum]!!.monthCallCount++
+                }
+
             }
             return nameMap
+        }
+
+        private fun lastWeek(): Date {
+            val cal = Calendar.getInstance()
+            cal.add(Calendar.DATE, -7)
+            return cal.time
+        }
+
+        private fun lastMonth(): Date {
+            val cal = Calendar.getInstance()
+            cal.add(Calendar.DATE, -30)
+            return cal.time
         }
 
     }
