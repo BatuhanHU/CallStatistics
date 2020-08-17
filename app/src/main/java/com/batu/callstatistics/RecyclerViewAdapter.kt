@@ -17,14 +17,30 @@ class RecyclerViewAdapter (var dataset: ArrayList<CardObject>, var context: Cont
 
     class ViewHolder(val linearLayout: LinearLayout) : RecyclerView.ViewHolder(linearLayout){
         var textTitle: TextView = linearLayout.findViewById(R.id.textViewTitle)
-        var textName: TextView = linearLayout.findViewById(R.id.textViewName)
+        var textTitle1: TextView = linearLayout.findViewById(R.id.textViewTitle1)
+        var textTitle2: TextView = linearLayout.findViewById(R.id.textViewTitle2)
+        var textTitle3: TextView = linearLayout.findViewById(R.id.textViewTitle3)
+        
         var textDuration: TextView = linearLayout.findViewById(R.id.textViewDurationValue)
+        var textDurationWeek: TextView = linearLayout.findViewById(R.id.textViewDurationValueWeek)
+        var textDurationMonth: TextView = linearLayout.findViewById(R.id.textViewDurationValueMonth)
+
         var textCallCount: TextView = linearLayout.findViewById(R.id.textViewCallCountValue)
+        var textCallCountWeek: TextView = linearLayout.findViewById(R.id.textViewCallCountValueWeek)
+        var textCallCountMonth: TextView = linearLayout.findViewById(R.id.textViewCallCountValueMonth)
+
+        var textName: TextView = linearLayout.findViewById(R.id.textViewName)
         var textInfo: TextView = linearLayout.findViewById(R.id.textViewInformation)
         var button: Button = linearLayout.findViewById(R.id.button_expand)
 
         val solidDuration: TextView = linearLayout.findViewById(R.id.textViewDuration)
+        val solidDuration1: TextView = linearLayout.findViewById(R.id.textViewDurationWeek)
+        val solidDuration2: TextView = linearLayout.findViewById(R.id.textViewDurationMonth)
+        
         val solidCallCount: TextView = linearLayout.findViewById(R.id.textViewCallCount)
+        val solidCallCount1: TextView = linearLayout.findViewById(R.id.textViewCallCountWeek)
+        val solidCallCount2: TextView = linearLayout.findViewById(R.id.textViewCallCountMonth)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
@@ -45,8 +61,15 @@ class RecyclerViewAdapter (var dataset: ArrayList<CardObject>, var context: Cont
         // - replace the contents of the view with that element
         //TODO: Fix those nasty warnings
         holder.textName.text = dataset[position].fullName
+
         holder.textDuration.text = dataset[position].totalDuration.toString() + " Seconds"
+        holder.textDurationWeek.text = dataset[position].weekDuration.toString() + " Seconds"
+        holder.textDurationMonth.text = dataset[position].monthDuration.toString() + " Seconds"
+
         holder.textCallCount.text = dataset[position].callCount.toString() + " Times"
+        holder.textCallCountWeek.text = dataset[position].weekCallCount.toString() + " Times"
+        holder.textCallCountMonth.text = dataset[position].monthCallCount.toString() + " Times"
+
         holder.textTitle.text = dataset[position].type.toString()
 
         // Fill the info area regarding to data type
@@ -74,16 +97,48 @@ class RecyclerViewAdapter (var dataset: ArrayList<CardObject>, var context: Cont
 
     private fun hideExtraData(holder: ViewHolder){
         holder.textCallCount.visibility = View.GONE
+        holder.textCallCountWeek.visibility = View.GONE
+        holder.textCallCountMonth.visibility = View.GONE
+
         holder.textDuration.visibility = View.GONE
+        holder.textDurationWeek.visibility = View.GONE
+        holder.textDurationMonth.visibility = View.GONE
+
         holder.solidDuration.visibility = View.GONE
+        holder.solidDuration1.visibility = View.GONE
+        holder.solidDuration2.visibility = View.GONE
+
         holder.solidCallCount.visibility = View.GONE
+        holder.solidCallCount1.visibility = View.GONE
+        holder.solidCallCount2.visibility = View.GONE
+
+        holder.textTitle1.visibility = View.GONE
+        holder.textTitle2.visibility = View.GONE
+        holder.textTitle3.visibility = View.GONE
+
+
     }
 
     private fun showExtraData(holder: ViewHolder){
         holder.textCallCount.visibility = View.VISIBLE
+        holder.textCallCountWeek.visibility = View.VISIBLE
+        holder.textCallCountMonth.visibility = View.VISIBLE
+
         holder.textDuration.visibility = View.VISIBLE
+        holder.textDurationWeek.visibility = View.VISIBLE
+        holder.textDurationMonth.visibility = View.VISIBLE
+
         holder.solidDuration.visibility = View.VISIBLE
+        holder.solidDuration1.visibility = View.VISIBLE
+        holder.solidDuration2.visibility = View.VISIBLE
+
         holder.solidCallCount.visibility = View.VISIBLE
+        holder.solidCallCount1.visibility = View.VISIBLE
+        holder.solidCallCount2.visibility = View.VISIBLE
+
+        holder.textTitle1.visibility = View.VISIBLE
+        holder.textTitle2.visibility = View.VISIBLE
+        holder.textTitle3.visibility = View.VISIBLE
     }
 
 

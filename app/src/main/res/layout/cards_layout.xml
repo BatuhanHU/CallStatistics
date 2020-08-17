@@ -48,7 +48,7 @@
                     android:background="?android:attr/listDivider"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewCallCount"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewCallCountMonth"
                     app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp"/>
             <Button
                     android:text="Expand"
@@ -72,9 +72,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textViewDuration"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" android:layout_marginTop="24dp"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewInformation" android:layout_marginStart="8dp"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTitle1" android:layout_marginTop="8dp"/>
             <TextView
                     android:text="Value"
                     android:layout_width="wrap_content"
@@ -98,6 +99,89 @@
                     app:layout_constraintBottom_toBottomOf="@+id/textViewCallCount"
                     app:layout_constraintTop_toTopOf="@+id/textViewCallCount"
                     app:layout_constraintStart_toStartOf="@+id/textViewDurationValue"/>
+            <TextView
+                    android:text="Last Week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewTitle2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewCallCount"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"/>
+            <TextView
+                    android:text="All Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewTitle1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/colorAccent"
+                    card_view:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/textViewInformation"/>
+            <TextView
+                    android:text="Last Month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewTitle3"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/colorAccent"
+                    card_view:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewCallCountWeek" android:layout_marginTop="16dp"/>
+            <TextView
+                    android:text="Total Duration : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewDurationWeek" app:layout_constraintStart_toStartOf="@+id/textViewTitle2"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/textViewTitle2"/>
+            <TextView
+                    android:text="Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewDurationValueWeek" app:layout_constraintStart_toStartOf="@+id/textViewCallCountValue"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewDurationWeek"/>
+            <TextView
+                    android:text="Call Count : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewCallCountWeek"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewDurationWeek"
+                    app:layout_constraintStart_toStartOf="@+id/textViewDurationWeek"
+                    android:layout_marginTop="8dp"/>
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewCallCountValueWeek" app:layout_constraintStart_toStartOf="@+id/textViewDurationValueWeek"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewCallCountWeek"/>
+            <TextView
+                    android:text="Total Duration : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewDurationMonth" android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTitle3" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="8dp"/>
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewDurationValueMonth"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewDurationMonth"
+                    app:layout_constraintStart_toStartOf="@+id/textViewCallCountValueWeek"/>
+            <TextView
+                    android:text="Call Count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewCallCountMonth" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp" app:layout_constraintTop_toBottomOf="@+id/textViewDurationMonth"
+                    android:layout_marginTop="8dp"/>
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewCallCountValueMonth"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewCallCountMonth"
+                    app:layout_constraintStart_toStartOf="@+id/textViewDurationValueMonth"
+            />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

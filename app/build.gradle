@@ -10,8 +10,8 @@ android {
         applicationId "com.batu.callstatistics"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 230000200
-        versionName "0.2.0"
+        versionCode 230000201
+        versionName "0.2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
